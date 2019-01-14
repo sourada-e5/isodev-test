@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  isodev:
+    ports:
+      - 9989:9989
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    image: 822675536931.dkr.ecr.us-west-2.amazonaws.com/scratch:sdo-isodev
+    entrypoint: gdbserver host:9989 /app/build/isodev /testdata/a.txt
+    volumes:
+      - type: bind
+        source: ./testdata
+        target: /testdata
